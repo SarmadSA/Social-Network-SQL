@@ -31,3 +31,11 @@ WHERE ID1 IN
 (SELECT ID2
 FROM Friend
 WHERE ID1 = (SELECT ID FROM Highschooler WHERE name = 'Cassandra'))
+
+--Q5 Find the name and grade of the student(s) with the greatest number of friends.
+SELECT name, grade
+FROM Highschooler
+WHERE ID IN
+(SELECT ID1
+FROM (SELECT count(f.ID2) AS fn, f.ID1 FROM friend f GROUP BY f.ID1)
+WHERE fn = (SELECT MAX(fn) FROM (SELECT count(f.ID2) AS fn, f.ID1 FROM friend f GROUP BY f.ID1)))
