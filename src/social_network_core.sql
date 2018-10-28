@@ -23,3 +23,10 @@ WHERE h1.ID = l.ID1
     AND h1.ID = l2.ID2
     AND h2.ID = l2.ID1
     AND h1.name < h2.name
+
+--Q4 Find all students who do not appear in the Likes table (as a student who likes or is liked) and return their names and grades. Sort by grade, then by name within each grade.
+SELECT h.name, h.grade
+FROM Highschooler H
+WHERE h.ID NOT IN (SELECT ID1 FROM likes)
+    AND h.ID NOT IN (SELECT ID2 FROM likes)
+ORDER BY h.grade
