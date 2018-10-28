@@ -18,3 +18,8 @@ WHERE h.id NOT IN (
     WHERE h1.ID = f.ID1
     AND h2.ID = f.ID2
     AND h1.grade = h2.grade)
+
+--Q3 What is the average number of friends per student? (Your result should be just one number.)
+SELECT COUNT(h.ID) * 1.0 / (SELECT COUNT(ID) FROM Highschooler) AS AVG
+FROM Highschooler h, Friend f
+WHERE h.ID = f.ID1
