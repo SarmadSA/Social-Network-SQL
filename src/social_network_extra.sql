@@ -23,3 +23,11 @@ WHERE h.id NOT IN (
 SELECT COUNT(h.ID) * 1.0 / (SELECT COUNT(ID) FROM Highschooler) AS AVG
 FROM Highschooler h, Friend f
 WHERE h.ID = f.ID1
+
+--Q4 Find the number of students who are either friends with Cassandra or are friends of friends of Cassandra. Do not count Cassandra, even though technically she is a friend of a friend.
+SELECT COUNT(ID2)
+FROM Friend
+WHERE ID1 IN
+(SELECT ID2
+FROM Friend
+WHERE ID1 = (SELECT ID FROM Highschooler WHERE name = 'Cassandra'))
