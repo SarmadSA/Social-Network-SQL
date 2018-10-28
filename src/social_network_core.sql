@@ -64,3 +64,8 @@ WHERE h.ID = f.ID1 AND h1.ID = f.ID2
 
 --Q8 Find the difference between the number of students in the school and the number of different first names.
 SELECT SELECT COUNT(name) - COUNT(DISTINCT name) FROM Highschooler
+
+--Q9 Find the name and grade of all students who are liked by more than one other student.
+SELECT name, grade
+FROM Highschooler
+WHERE ID IN (SELECT ID2 FROM Likes GROUP BY ID2 HAVING COUNT(ID2) > 1)
