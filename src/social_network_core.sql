@@ -61,3 +61,6 @@ WHERE a.ID = l.ID1
     EXCEPT SELECT h.name, h.grade, h1.name, h1.grade, h2.name, h2.grade
 FROM highschooler h, highschooler h1, highschooler h2, friend f
 WHERE h.ID = f.ID1 AND h1.ID = f.ID2
+
+--Q8 Find the difference between the number of students in the school and the number of different first names.
+SELECT SELECT COUNT(name) - COUNT(DISTINCT name) FROM Highschooler
