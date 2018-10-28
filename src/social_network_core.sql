@@ -37,3 +37,14 @@ FROM Highschooler h1, Highschooler h2, Likes l
 WHERE h1.ID = l.ID1
     AND h2.ID = l.ID2
     AND h2.ID NOT IN (SELECT ID1 FROM Likes)
+
+--Q6 Find names and grades of students who only have friends in the same grade. Return the result sorted by grade, then by name within each grade.
+SELECT h.name, h.grade
+FROM Highschooler h
+WHERE h.ID NOT IN
+(SELECT DISTINCT h1.ID
+FROM Highschooler h1, Highschooler h2, Friend f
+WHERE h1.ID = f.ID1
+    AND h2.ID = f.ID2
+    AND h1.grade <> h2.grade)
+ORDER BY h.grade, h.name
