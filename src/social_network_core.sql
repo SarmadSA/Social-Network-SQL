@@ -48,3 +48,16 @@ WHERE h1.ID = f.ID1
     AND h2.ID = f.ID2
     AND h1.grade <> h2.grade)
 ORDER BY h.grade, h.name
+
+--Q7 For each student A who likes a student B where the two are not friends, find if they have a friend C in common (who can introduce them!). For all such trios, return the name and grade of A, B, and C.
+SELECT a.name, a.grade, b.name, b.grade, c.name, c.grade
+FROM Highschooler a, Highschooler b, Highschooler c, likes l, Friend f, Friend f2
+WHERE a.ID = l.ID1
+    AND b.ID = l.ID2
+    AND a.ID = f.ID1
+    AND c.ID = f.ID2
+    AND b.ID = f2.ID1
+    AND c.ID = f2.ID2
+    EXCEPT SELECT h.name, h.grade, h1.name, h1.grade, h2.name, h2.grade
+FROM highschooler h, highschooler h1, highschooler h2, friend f
+WHERE h.ID = f.ID1 AND h1.ID = f.ID2
